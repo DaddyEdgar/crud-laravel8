@@ -1,0 +1,12 @@
+//Creando el modelo de empleados, lo que hara es crear el controlador, el modelo y la migración
+php artisan make:model Empleado -mcr;
+
+//Sirve para migrar la base de datos en phpmyadmin por primera vez
+php artisan migrate
+
+//Sirve para refrescar la base de datos en phpmyadmin 
+php artisan migrate:fresh --seed
+
+****Error* composer/laravel permiso denegado****
+chmod -R 777 storage
+chmod -R 777 bootstrap/cache
