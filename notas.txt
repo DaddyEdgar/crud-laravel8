@@ -10,3 +10,9 @@ php artisan migrate:fresh --seed
 ****Error* composer/laravel permiso denegado****
 chmod -R 777 storage
 chmod -R 777 bootstrap/cache
+
+//Ver las rutas activas en una lista
+php artisan route:list
+
+//Dar permiso a la carpeta storage para subir las imagenes
+sudo chmod -R 777 storage/

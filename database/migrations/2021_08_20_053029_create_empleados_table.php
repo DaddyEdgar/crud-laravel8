@@ -19,7 +19,7 @@ class CreateEmpleadosTable extends Migration
             $table->string('Apellido');
             $table->string('Correo');
             $table->string('Rol');
-            $table->string('foto');
+            $table->string('Foto');
             $table->timestamps();
         });
     }

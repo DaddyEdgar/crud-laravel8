@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use app\Http\Controllers\EmpleadoController;
-
+use App\Http\Controllers\EmpleadoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +16,13 @@ use app\Http\Controllers\EmpleadoController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+/*
 Route::get('/empleado', function () {
     return view('empleado.index');
 });
-
+//Trabajar con una clase especifica
 Route::get('/empleado/create', [EmpleadoController::class,'create']);
+*/
+
+//Trabajar con todas las URLS DE TODAS LAS CLASES
+Route::resource('empleado', EmpleadoController::class);

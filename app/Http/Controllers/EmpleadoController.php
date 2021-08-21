@@ -15,6 +15,8 @@ class EmpleadoController extends Controller
     public function index()
     {
         //
+        $datos['empleados'] = Empleado::paginate(5);
+        return view('empleado.index', $datos);
     }
 
     /**
@@ -37,6 +39,23 @@ class EmpleadoController extends Controller
     public function store(Request $request)
     {
         //
+
+        //Obtienes todos los datos del formulario
+        //$datosEmpleado = request()->all();
+
+        //Obtienes todos los datos excepto el token
+        $datosEmpleado = request()->except('_token');
+
+        //Validar la foto
+        if ($request->hasFile('Foto')) {
+            $datosEmpleado['Foto'] = $request->file('Foto')->store('uploads', 'public');
+        }
+
+        //Con el modelo insertas con los campos que están enviando con la variable $datosEmpleado 
+        Empleado::insert($datosEmpleado);
+
+
+        return response()->json($datosEmpleado);
     }
 
     /**
@@ -56,9 +75,13 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empleado $empleado)
+    public function edit($id)
     {
         //
+        //Buscamos el id para editarlo
+        $empleado = Empleado::findOrFail($id);
+        //Retornamos la vista con el id y su informacion del id
+        return view('empleado.edit', compact('empleado'));
     }
 
     /**
@@ -68,9 +91,16 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empleado $empleado)
+    public function update(Request $request, $id)
     {
         //
+        //Obtienes todos los datos excepto el token
+        $datosEmpleado = request()->except(['_token', '_method']);
+        Empleado::where('id', '=', $id)->update($datosEmpleado);
+        //Buscamos el id para editarlo
+        $empleado = Empleado::findOrFail($id);
+        //Retornamos la vista con el id y su informacion del id
+        return view('empleado.edit', compact('empleado'));
     }
 
     /**
@@ -79,8 +109,10 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empleado $empleado)
+    public function destroy($id)
     {
         //
+        Empleado::destroy($id);
+        return redirect('empleado');
     }
 }
