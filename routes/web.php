@@ -14,7 +14,7 @@ use App\Http\Controllers\EmpleadoController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 /*
 Route::get('/empleado', function () {
@@ -24,8 +24,13 @@ Route::get('/empleado', function () {
 Route::get('/empleado/create', [EmpleadoController::class,'create']);
 */
 
-//Trabajar con todas las URLS DE TODAS LAS CLASES
-Route::resource('empleado', EmpleadoController::class);
-Auth::routes();
+//Trabajar con todas las URLS DE TODAS LAS CLASES  || Restringuiendo si no existe la autenticación
+Route::resource('empleado', EmpleadoController::class)->middleware('auth');
+Auth::routes(['register' => false, 'reset' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [EmpleadoController::class, 'index'])->name('home');
+
+//Cuando sea autenticado, me redireccione al index, osea el CRUD
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', [EmpleadoController::class, 'index'])->name('home');
+});
