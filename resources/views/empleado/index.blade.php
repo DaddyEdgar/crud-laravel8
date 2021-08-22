@@ -1,5 +1,11 @@
 Todos los datos de la bd
+<br>
+@if(Session::has('mensaje'))
+{{Session::get('mensaje')}}
+@endif
 
+<br>
+<a href="{{url('empleado/create')}}">Agregar</a>
 
 <table class="table table-hover">
     <thead>
@@ -17,7 +23,9 @@ Todos los datos de la bd
         @foreach($empleados as $empleado)
         <tr>
             <td>{{ $empleado->id }}</td>
-            <td>{{ $empleado->Foto}}</td>
+            <td>
+                <img src="{{asset('storage'.'/'.$empleado->Foto)}}" width="100" alt="">       
+            </td>
             <td>{{ $empleado->Nombre}}</td>
             <td>{{ $empleado->Apellido}}</td>
             <td>{{ $empleado->Correo}}</td>

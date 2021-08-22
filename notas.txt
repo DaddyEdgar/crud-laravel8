@@ -16,3 +16,15 @@ php artisan route:list
 
 //Dar permiso a la carpeta storage para subir las imagenes
 sudo chmod -R 777 storage/
+
+//Dar permiso para la foto
+php artisan storage:link
+
+//Autenticación (integra la interfaz de la aplicación)
+composer require laravel/ui
+
+//Autenticación con bootstrap
+php artisan ui bootstrap --auth
+npm install
+npm run dev
+
